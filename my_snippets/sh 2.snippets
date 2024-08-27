@@ -1,0 +1,118 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+snippet base "Basic Bash Script" b
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+# set -o xtrace
+
+# Set magic variables for current file & dir
+# __dir="\$(cd "\$(dirname "\${BASH_SOURCE[0]}")" && pwd)"
+# __file="\${__dir}/\$(basename "\${BASH_SOURCE[0]}")"
+# __base="\$(basename \${__file} .sh)"
+# __root="\$(cd "\$(dirname "\${__dir}")" && pwd)" # <-- change this as it depends on your app
+endsnippet
+
+snippet baseapp "Basic Bash App" b
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+# set -o xtrace
+
+# Set magic variables for current file & dir
+# __dir="\$(cd "\$(dirname "\${BASH_SOURCE[0]}")" && pwd)"
+# __file="\${__dir}/\$(basename "\${BASH_SOURCE[0]}")"
+# __base="\$(basename \${__file} .sh)"
+# __root="$(cd "\$(dirname "\${__dir}")" && pwd)" # <-- change this as it depends on your app
+
+function cleanup() {
+    >&2 echo "Stopping daemons"
+}
+
+function _on_exit() {
+    trap - SIGTERM
+    cleanup
+    kill "\$(jobs -p)" >/dev/null 2>&1
+    kill -- -\$\$ >/dev/null 2>&1
+    wait
+}
+
+function run() {
+    >&2 echo "Do some work"
+}
+
+trap _on_exit EXIT
+
+run
+wait
+endsnippet
+
+snippet getopt "Parse options" b
+function usage() {
+		echo "Usage :  \$0 [options] [--]
+
+		Options:
+		-h|--help			Displays this message"
+}
+
+args=""
+for arg; do
+    case "\${arg}" in
+        --help)
+            args="\${args} -h"
+            ;;
+        *)
+            args="\${args} \${arg}"
+            ;;
+    esac
+done
+
+eval set -- "\${args}"
+
+# Put your arguments here
+arg_parse=":h"
+while getopts "\${arg_parse}" opt; do
+    case "\${opt}" in
+        h)
+						usage
+						exit 0
+						;;
+				*)
+						>&2 echo "Option does not exist : \$OPTARG"
+						usage
+						exit 1
+						;;
+    esac
+done
+
+shift \$((OPTIND-1))
+endsnippet
+
+

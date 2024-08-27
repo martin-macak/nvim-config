@@ -1,0 +1,72 @@
+{
+  "diagnostic-languageserver.filetypes": {
+    "sh": "shellcheck",
+    "yaml": "yamllint",
+    "json": "jsonlint",
+    "vim": "vint"
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "sh": "shfmt"
+  },
+  "cSpell.language": "en",
+  "cSpell.enabled": true,
+  "cSpell.enabledLanguageIds": [
+    "vim",
+    "asciidoc",
+    "c",
+    "cpp",
+    "csharp",
+    "css",
+    "git-commit",
+    "gitcommit",
+    "go",
+    "handlebars",
+    "haskell",
+    "html",
+    "jade",
+    "java",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "latex",
+    "less",
+    "markdown",
+    "php",
+    "plaintext",
+    "python",
+    "pug",
+    "restructuredtext",
+    "rust",
+    "scala",
+    "scss",
+    "text",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+    "yml"
+  ],
+  "cSpell.userWords": [
+    "Arnoud",
+    "Eldar",
+    "KPIs",
+    "POWERTOOLS",
+    "Petr",
+    "pluggable",
+    "vertice",
+    "verticeone"
+  ],
+  "languageserver": {
+		"terraform": {
+			"command": "terraform-ls",
+			"args": ["serve"],
+			"filetypes": [
+				"terraform",
+				"tf"
+			],
+			"initializationOptions": {},
+			"settings": {}
+		}
+  },
+  "snippets.ultisnips.pythonPrompt": false
+}
